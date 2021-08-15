@@ -154,7 +154,7 @@ function CompileInstall(){
 #下载Geo数据库
 function down_geoip(){
     #下载数据库
-    wget -o /tmp/GeoLite2-City.tar.gz https://soft.xiaoz.org/linux/GeoLite2-City_20210810.tar.gz
+    wget -O /tmp/GeoLite2-City.tar.gz https://soft.xiaoz.org/linux/GeoLite2-City_20210810.tar.gz
     wget -O /tmp/GeoLite2-Country.tar.gz https://soft.xiaoz.org/linux/GeoLite2-Country_20210810.tar.gz
     #解压数据库
     cd /tmp
