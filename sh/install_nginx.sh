@@ -149,6 +149,29 @@ function CompileInstall(){
 	echo "XCDN installed successfully."
 }
 
+#二进制安装
+function bin_install(){
+    #创建用户和用户组
+	groupadd www
+	useradd -M -g www www -s /sbin/nologin
+    #进入目录
+    cd /usr/local
+    wget -O xcdn.tar.gz https://soft.xiaoz.org/nginx/xcdn/xcdn_binary_1.18_20210815.tar.gz
+    #解压
+    tar -xf xcdn.tar.gz
+    #日志分割
+	#wget --no-check-certificate https://raw.githubusercontent.com/helloxz/nginx-cdn/master/etc/logrotate.d/nginx -P /etc/logrotate.d/
+	
+	#/usr/local/nginx/sbin/nginx
+
+	#环境变量与服务
+	echo "export PATH=$PATH:/usr/local/nginx/sbin" >> /etc/profile
+	export PATH=$PATH:'/usr/local/nginx/sbin'
+
+	echo "------------------------------------------------"
+	echo "XCDN installed successfully."
+}
+
 
 #下载Geo数据库
 function down_geoip(){
@@ -168,6 +191,7 @@ function clean_work(){
     apt-get -y remove unzip
     apt-get clean && rm -rf /var/lib/apt/lists/*
     rm -rf /tmp/*
+    rm -rf /usr/local/*.gz
 }
 
 #脚本添加执行权限
@@ -176,5 +200,4 @@ cp /root/run.sh /usr/sbin/
 
 
 #安装xcdn
-jemalloc && depend && CompileInstall && down_geoip && clean_work
-
+jemalloc && depend && bin_install && down_geoip && clean_work
