@@ -18,7 +18,7 @@ pcre_version='8.43'
 
 #更新系统及安装需要的组件
 apt-get -y update
-apt-get -y install curl wget perl unzip build-essential libmaxminddb-dev libgd-dev openssl procps
+apt-get -y install curl wget perl unzip build-essential libmaxminddb-dev libgd-dev openssl libssl-dev procps
 
 #安装jemalloc优化内存管理
 function jemalloc(){
