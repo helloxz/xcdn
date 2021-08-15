@@ -200,4 +200,4 @@ cp /root/run.sh /usr/sbin/
 
 
 #安装xcdn
-jemalloc && depend && bin_install && down_geoip && clean_work
+jemalloc && bin_install && down_geoip && clean_work
