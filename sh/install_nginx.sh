@@ -18,7 +18,7 @@ pcre_version='8.43'
 
 #更新系统及安装需要的组件
 apt-get -y update
-apt-get -y install curl wget perl unzip build-essential libmaxminddb-dev libgd-dev
+apt-get -y install curl wget perl unzip build-essential libmaxminddb-dev libgd-dev openssl openssl-devel procps
 
 #安装jemalloc优化内存管理
 function jemalloc(){
@@ -48,12 +48,12 @@ function depend(){
 	./configure
 	make -j4 && make -j4 install
 	#安装openssl
-	cd ${dir}
-	wget --no-check-certificate -O openssl.tar.gz https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
-	tar -zxvf openssl.tar.gz
-	cd openssl-${openssl_version}
-	./config
-	make -j4 && make -j4 install
+	# cd ${dir}
+	# wget --no-check-certificate -O openssl.tar.gz https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
+	# tar -zxvf openssl.tar.gz
+	# cd openssl-${openssl_version}
+	# ./config
+	# make -j4 && make -j4 install
 	#下载testcookie-nginx-module
 	cd ${dir}
 	wget http://soft.xiaoz.org/nginx/testcookie-nginx-module.zip
@@ -111,7 +111,7 @@ function CompileInstall(){
 	--with-pcre=../pcre-${pcre_version} \
 	--with-pcre-jit \
 	--with-zlib=../zlib-1.2.11 \
-	--with-openssl=../openssl-${openssl_version} \
+	--with-openssl \
 	--add-dynamic-module=../ngx_http_substitutions_filter_module \
 	--add-module=../ngx_cache_purge \
 	--add-module=../ngx_brotli \
@@ -150,10 +150,25 @@ function CompileInstall(){
 	echo "XCDN installed successfully."
 }
 
+
 #下载Geo数据库
 function down_geoip(){
-    wget -o /tmp/GeoLite2-City.tar.gz  https://soft.xiaoz.org/linux/GeoLite2-City_20201110.tar.gz
-    wget -O /tmp/GeoLite2-Country.tar.gz https://soft.xiaoz.org/linux/GeoLite2-Country_20201110.tar.gz
+    #下载数据库
+    wget -o /tmp/GeoLite2-City.tar.gz https://soft.xiaoz.org/linux/GeoLite2-City_20201110.tar.gz
+    wget -O /tmp/GeoLite2-Country.tar.gz https://soft.xiaoz.org/linux/GeoLite2-Country_20210810.tar.gz
+    #解压数据库
+    cd /tmp
+    tar -xvf GeoLite2-City.tar.gz
+    tar -xvf GeoLite2-Country.tar.gz
+    mv GeoLite2-Country_20201110/GeoLite2-Country.mmdb /root/
+    mv GeoLite2-City_20210810/GeoLite2-City.mmdb /root/
+}
+
+#清理工作
+function clean_work(){
+    apt-get -y remove unzip
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+    rm -rf /tmp/*
 }
 
 #脚本添加执行权限
@@ -162,9 +177,5 @@ cp /root/run.sh /usr/sbin/
 
 
 #安装xcdn
-jemalloc && depend && CompileInstall
+jemalloc && depend && CompileInstall && down_geoip && clean_work
 
-
-
-#清理apt-get缓存，减小体积
-apt-get clean && rm -rf /var/lib/apt/lists/*
