@@ -111,7 +111,6 @@ function CompileInstall(){
 	--with-pcre=../pcre-${pcre_version} \
 	--with-pcre-jit \
 	--with-zlib=../zlib-1.2.11 \
-	--with-openssl \
 	--add-dynamic-module=../ngx_http_substitutions_filter_module \
 	--add-module=../ngx_cache_purge \
 	--add-module=../ngx_brotli \
