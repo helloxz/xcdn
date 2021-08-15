@@ -140,7 +140,7 @@ function CompileInstall(){
 	#日志分割
 	wget --no-check-certificate https://raw.githubusercontent.com/helloxz/nginx-cdn/master/etc/logrotate.d/nginx -P /etc/logrotate.d/
 	
-	/usr/local/nginx/sbin/nginx
+	#/usr/local/nginx/sbin/nginx
 
 	#环境变量与服务
 	echo "export PATH=$PATH:/usr/local/nginx/sbin" >> /etc/profile
@@ -150,9 +150,21 @@ function CompileInstall(){
 	echo "XCDN installed successfully."
 }
 
+#下载Geo数据库
+function down_geoip(){
+    wget -o /tmp/GeoLite2-City.tar.gz  https://soft.xiaoz.org/linux/GeoLite2-City_20201110.tar.gz
+    wget -O /tmp/GeoLite2-Country.tar.gz https://soft.xiaoz.org/linux/GeoLite2-Country_20201110.tar.gz
+}
+
 #脚本添加执行权限
 chmod +x /root/*.sh
 cp /root/run.sh /usr/sbin/
 
+
 #安装xcdn
 jemalloc && depend && CompileInstall
+
+
+
+#清理apt-get缓存，减小体积
+apt-get clean && rm -rf /var/lib/apt/lists/*

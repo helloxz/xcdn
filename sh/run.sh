@@ -25,7 +25,7 @@ function create_dir(){
 function run_check(){
     if [ ! -f "/data/xcdn/conf/nginx.conf" ];then
         #复制配置文件
-        cp /root/nginx.conf /data/xcdn/conf/;
+        cp /root/nginx.conf /data/xcdn/conf/
     fi
 
 }
@@ -33,7 +33,8 @@ function run_check(){
 function start_run(){
     #运行nginx
     /usr/local/nginx/sbin/nginx -c /data/xcdn/conf/nginx.conf
-    tail -f /data/xcdn/logs/error.log;
+    touch /data/xcdn/logs/error.log
+    tail -f /data/xcdn/logs/error.log
 }
 #运行nginx
 create_dir
