@@ -16,11 +16,38 @@ openssl_version='1.1.1g'
 #定义pcre版本
 pcre_version='8.43'
 
-#更新系统及安装需要的组件
-apt-get -y update
-apt-get -y install curl wget perl unzip build-essential libmaxminddb-dev libgd-dev openssl libssl-dev procps
+#更新软件
+apk update
+#安装timezone
+apk add -U tzdata
+#查看时区列表
+ls /usr/share/zoneinfo
+#拷贝需要的时区文件到localtime
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+#查看当前时间
+date
+#为了精简镜像，可以将tzdata删除了
+apk del tzdata
 
-#安装jemalloc优化内存管理
+#更新系统及安装需要的组件
+apk add --no-cache --virtual .build-deps \
+	gcc \
+	libc-dev \
+	make \
+	openssl-dev \
+	pcre-dev \
+	zlib-dev \
+	linux-headers \
+	curl \
+	gnupg \
+	libxslt-dev \
+	gd-dev \
+	geoip-dev \
+	wget \
+	unzip \
+	bash
+
+#安装jemalloc优化内存管理,alpine不适用
 function jemalloc(){
 	wget http://soft.xiaoz.org/linux/jemalloc-5.2.0.tgz
 	tar -zxvf jemalloc-5.2.0.tgz
@@ -176,5 +203,5 @@ cp /root/run.sh /usr/sbin/
 
 
 #安装xcdn
-jemalloc && depend && CompileInstall && down_geoip && clean_work
+depend && CompileInstall && down_geoip && clean_work
 
