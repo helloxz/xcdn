@@ -7,5 +7,5 @@
 docker run -d --name=xcdn \
     -p 880:80 -p 8443:443 \
     -v /temp/xcdn:/data/xcdn \
-    helloz/xcdn:xcdn2020101310
+    helloz/xcdn:xcdn202010131021
 ```
