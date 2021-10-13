@@ -61,21 +61,6 @@ function jemalloc(){
 
 #安装依赖环境
 function depend(){
-	#安装zlib
-	cd ${dir}
-	wget http://soft.xiaoz.org/linux/zlib-1.2.11.tar.gz
-	tar -zxvf zlib-1.2.11.tar.gz
-	cd zlib-1.2.11
-	./configure
-	make -j4 && make -j4 install
-	#安装openssl
-	# cd ${dir}
-	# wget --no-check-certificate -O openssl.tar.gz https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
-	# tar -zxvf openssl.tar.gz
-	# cd openssl-${openssl_version}
-	# ./config
-	# make -j4 && make -j4 install
-	#下载testcookie-nginx-module
 	cd ${dir}
 	wget http://soft.xiaoz.org/nginx/testcookie-nginx-module.zip
 	unzip testcookie-nginx-module.zip
@@ -120,6 +105,7 @@ function CompileInstall(){
 	wget https://wget.ovh/nginx/xcdn-${nginx_version}.tar.gz
 	tar -zxvf xcdn-${nginx_version}.tar.gz
 	cd xcdn-${nginx_version}
+	mkdir -p /usr/local/nginx/
 	./configure --prefix=/usr/local/nginx --user=www --group=www \
 	--with-stream \
 	--with-http_stub_status_module \
@@ -131,7 +117,7 @@ function CompileInstall(){
 	--with-http_image_filter_module=dynamic \
 	--with-pcre \
 	--with-pcre-jit \
-	--with-zlib=../zlib-1.2.11 \
+	--with-zlib \
 	--add-dynamic-module=../ngx_http_substitutions_filter_module \
 	--add-module=../ngx_cache_purge \
 	--add-module=../ngx_brotli \
