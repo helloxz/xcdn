@@ -6,6 +6,6 @@
 ```bash
 docker run -d --name=xcdn \
     -p 880:80 -p 8443:443 \
-    -v /temp/xcdn:/data/xcdn \
-    helloz/xcdn:xcdn202010131021
+    -v /tmp/xcdn:/data/xcdn \
+    helloz/xcdn:xcdn202110131217
 ```

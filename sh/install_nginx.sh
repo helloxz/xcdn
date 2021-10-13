@@ -121,7 +121,7 @@ function CompileInstall(){
 	--add-module=../ngx_cache_purge \
 	--add-module=../ngx_brotli \
 	--add-dynamic-module=${dir}ngx_http_geoip2_module \
-	--add-dynamic-module=${dir}ngx_waf-9.0.6 \
+	--add-dynamic-module=${dir}ngx_waf-9.0.6
 	make -j4 && make -j4 install
 
 	#一点点清理工作
