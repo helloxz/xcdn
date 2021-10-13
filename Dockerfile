@@ -1,5 +1,5 @@
-#基于哪个镜像制作
-FROM alpine:3.14
+#基于哪个镜像制作,3.14会有问题
+FROM alpine:3.13
 #工作目录
 WORKDIR /root
 #复制脚本到root目录
