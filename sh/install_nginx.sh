@@ -192,8 +192,9 @@ function down_geoip(){
 
 #清理工作
 function clean_work(){
-    apt-get -y remove unzip
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apk del unzip
+    rm -rf /var/cache/apk/*
+	rm -rf /root/.cache
     rm -rf /tmp/*
 }
 
