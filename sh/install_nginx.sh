@@ -76,10 +76,6 @@ function depend(){
 
 #编译安装Nginx
 function CompileInstall(){
-	#创建用户和用户组
-	groupadd www
-	useradd -M -g www www -s /sbin/nologin
-	
 	#rm -rf /usr/local/pcre-8.39.tar.gz
 	#rm -rf /usr/local/zlib-1.2.11.tar.gz
 	#rm -rf /usr/local/openssl-1.1.0h.tar.gz
