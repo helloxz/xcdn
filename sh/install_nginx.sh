@@ -43,6 +43,7 @@ apk add --no-cache --virtual .build-deps \
 	libxslt-dev \
 	gd-dev \
 	geoip-dev \
+	libmaxminddb \
 	wget \
 	unzip \
 	bash
