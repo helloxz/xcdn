@@ -60,13 +60,6 @@ function jemalloc(){
 
 #安装依赖环境
 function depend(){
-	#安装pcre
-	cd ${dir}
-	wget --no-check-certificate https://ftp.pcre.org/pub/pcre/pcre-${pcre_version}.tar.gz
-	tar -zxvf pcre-${pcre_version}.tar.gz
-	cd pcre-${pcre_version}
-	./configure
-	make -j4 && make -j4 install
 	#安装zlib
 	cd ${dir}
 	wget http://soft.xiaoz.org/linux/zlib-1.2.11.tar.gz
@@ -135,7 +128,7 @@ function CompileInstall(){
 	--with-http_realip_module \
 	--with-http_slice_module \
 	--with-http_image_filter_module=dynamic \
-	--with-pcre=../pcre-${pcre_version} \
+	--with-pcre \
 	--with-pcre-jit \
 	--with-zlib=../zlib-1.2.11 \
 	--add-dynamic-module=../ngx_http_substitutions_filter_module \
