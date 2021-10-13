@@ -72,6 +72,10 @@ function depend(){
 	cd ${dir}
 	wget http://soft.xiaoz.org/nginx/ngx_http_geoip2_module.zip
 	unzip ngx_http_geoip2_module.zip
+	#下载waf模块
+	cd ${dir}
+	wget http://soft.xiaoz.org/nginx/ngx_waf-9.0.6.tar.gz
+	tar -zxvf ngx_waf-9.0.6.tar.gz
 }
 
 #编译安装Nginx
@@ -116,7 +120,8 @@ function CompileInstall(){
 	--add-dynamic-module=../ngx_http_substitutions_filter_module \
 	--add-module=../ngx_cache_purge \
 	--add-module=../ngx_brotli \
-	--add-dynamic-module=${dir}ngx_http_geoip2_module
+	--add-dynamic-module=${dir}ngx_http_geoip2_module \
+	--add-dynamic-module=${dir}ngx_waf-9.0.6 \
 	make -j4 && make -j4 install
 
 	#一点点清理工作
@@ -132,8 +137,9 @@ function CompileInstall(){
 	rm -rf ${dir}ngx_brotli*
 	rm -rf nginx.tar.gz
 	rm -rf nginx.1
-	cd
+	rm -rf ${dir}ngx_*
 	rm -rf jemalloc*
+	cd
 
 	#复制配置文件
 	mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
