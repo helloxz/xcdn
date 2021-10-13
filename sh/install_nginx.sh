@@ -117,7 +117,6 @@ function CompileInstall(){
 	--with-http_image_filter_module=dynamic \
 	--with-pcre \
 	--with-pcre-jit \
-	--with-zlib \
 	--add-dynamic-module=../ngx_http_substitutions_filter_module \
 	--add-module=../ngx_cache_purge \
 	--add-module=../ngx_brotli \
