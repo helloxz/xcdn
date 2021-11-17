@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  xcdn:
+    image: helloz/xcdn:xcdn202111172143
+    environment:
+      
+    #network_mode: "host"
+    ports:
+      - "880:80"
+      - "8443:443"
+    volumes:
+      - /data/xcdn:/data/xcdn
+    restart:
+      always
