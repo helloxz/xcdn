@@ -176,8 +176,9 @@ function clean_work(){
 #脚本添加执行权限
 chmod +x /root/*.sh
 cp /root/run.sh /usr/sbin/
+cp /root/xcdn.sh /usr/sbin/
 
 
 #安装xcdn
-depend && CompileInstall && down_geoip && clean_work
+depend && CompileInstall && clean_work
 
