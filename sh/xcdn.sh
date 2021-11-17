@@ -41,7 +41,7 @@ function check_conf() {
 }
 
 # 根据用户输入执行不同动作
-case $VAR in
+case ${arg1} in
     'start') 
         start
     ;;
