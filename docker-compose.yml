@@ -2,7 +2,7 @@ version: '3.3'
 services:
   xcdn:
     image: helloz/xcdn:xcdn202111172143
-    environment:
+    #environment:
       
     #network_mode: "host"
     ports:

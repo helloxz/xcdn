@@ -42,19 +42,19 @@ function check_conf() {
 
 # 根据用户输入执行不同动作
 case $VAR in
-    start) 
+    'start') 
         start
     ;;
-    stop) 
+    'stop') 
         stop
     ;;
-    quit)
+    'quit')
         quit
     ;;
-    reload)
+    'reload')
         reload
     ;;
-    -t)
+    '-t')
         check_conf
     ;;
     *) 
