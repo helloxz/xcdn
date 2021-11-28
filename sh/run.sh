@@ -14,6 +14,7 @@ function create_dir(){
 
     #创建日志文件夹
     mkdir -p /data/xcdn/logs;
+    touch /data/xcdn/logs/error.log
     #创建ssl证书文件夹
     mkdir -p /data/xcdn/ssl;
     #创建缓存文件夹
@@ -31,10 +32,10 @@ function run_check(){
 }
 
 function start_run(){
-    #运行nginx
-    /usr/local/nginx/sbin/nginx -c /data/xcdn/conf/nginx.conf
-    touch /data/xcdn/logs/error.log
-    tail -f /data/xcdn/logs/error.log
+    #运行nginx,保持前台运行
+    /usr/local/nginx/sbin/nginx -g "daemon off;" -c /data/xcdn/conf/nginx.conf
+    
+    #tail -f /data/xcdn/logs/error.log
 }
 #运行nginx
 create_dir

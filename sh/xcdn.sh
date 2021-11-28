@@ -15,9 +15,9 @@ arg1=$1
 #启动脚本
 function start(){
 	#运行nginx
-    $nginx -c /data/xcdn/conf/nginx.conf
-    sleep 10
-    tail -f /data/xcdn/logs/error.log
+    $nginx -g "daemon off;" -c /data/xcdn/conf/nginx.conf
+    #sleep 10
+    #tail -f /data/xcdn/logs/error.log
 }
 #停止脚本
 function stop() {

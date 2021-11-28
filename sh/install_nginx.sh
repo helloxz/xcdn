@@ -177,6 +177,8 @@ function clean_work(){
 chmod +x /root/*.sh
 cp /root/run.sh /usr/sbin/
 cp /root/xcdn.sh /usr/sbin/
+#创建软连接
+ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
 
 
 #安装xcdn
