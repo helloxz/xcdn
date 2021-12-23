@@ -64,20 +64,10 @@ apk add --no-cache --virtual .build-deps \
 	git \
 	libsodium-dev
 
-#安装jemalloc优化内存管理,alpine不适用
-function jemalloc(){
-	wget http://soft.xiaoz.org/linux/jemalloc-5.2.0.tgz
-	tar -zxvf jemalloc-5.2.0.tgz
-	cd jemalloc-5.2.0
-	./configure
-	make && make install
-	echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
-	ldconfig
-}
 #安装ngx_waf的依赖
 function libmaxminddb(){
 	cd /usr/local/src \
-        &&  wget https://github.com/maxmind/libmaxminddb/releases/download/1.6.0/libmaxminddb-1.6.0.tar.gz -O libmaxminddb.tar.gz         &&  mkdir libmaxminddb \
+        &&  wget https://github.com/maxmind/libmaxminddb/releases/download/1.6.0/libmaxminddb-1.6.0.tar.gz -O libmaxminddb.tar.gz &&  mkdir libmaxminddb \
         &&  tar -zxf "libmaxminddb.tar.gz" -C libmaxminddb --strip-components=1 \
         &&  cd libmaxminddb \
         &&  ./configure --prefix=/usr/local/libmaxminddb \
@@ -90,7 +80,8 @@ function libmaxminddb(){
         &&  ./build.sh \
         &&  git submodule init \
         &&  git submodule update \
-        &&  ./configure --prefix=/usr/local/modsecurity --with-maxmind=/usr/local/libmaxminddb \        &&  make -j $(nproc) \ \
+        &&  ./configure --prefix=/usr/local/modsecurity --with-maxmind=/usr/local/libmaxminddb \
+        &&  make -j $(nproc) \
         &&  make install \
         &&  export LIB_MODSECURITY=/usr/local/modsecurity
 }
