@@ -101,9 +101,8 @@ function ngx_waf(){
 	git clone -b current https://github.com/ADD-SP/ngx_waf.git
 	cd /usr/local/src/ngx_waf \
     &&  git clone -b v1.7.15 https://github.com/DaveGamble/cJSON.git lib/cjson
-    &&  cd /usr/local/src/nginx-1.20.1
-cd /usr/local/src/ngx_waf \
-        &&  git clone -b v2.3.0 https://github.com/troydhanson/uthash.git lib/uthash
+	cd /usr/local/src/ngx_waf \
+    &&  git clone -b v2.3.0 https://github.com/troydhanson/uthash.git lib/uthash
 }
 #安装依赖环境
 function depend(){
