@@ -16,7 +16,8 @@ depend(){
 	wget \
 	curl \
 	libsodium \
-	bash
+	bash \
+	libxml2
 }
 
 #设置时间
