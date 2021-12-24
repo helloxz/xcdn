@@ -15,7 +15,8 @@ depend(){
 	libmaxminddb-dev \
 	wget \
 	curl \
-	libsodium
+	libsodium \
+	bash
 }
 
 #设置时间
