@@ -138,6 +138,13 @@ function CompileInstall(){
 	wget https://nginx.org/download/nginx-${nginx_version}.tar.gz
 	tar -zxvf nginx-${nginx_version}.tar.gz
 	cd nginx-${nginx_version}
+	#替换头信息为xcdn
+	sed -i "s#\"NGINX\"#\"xcdn\"#" src/core/nginx.h
+	sed -i "s#\"nginx/\"#\"xcdn/\"#" src/core/nginx.h
+	sed -i "s#Server: nginx#Server: xcdn#" src/http/ngx_http_header_filter_module.c
+	sed -i "s#\"<hr><center>nginx<\/center>\"#\"<hr><center>xcdn<\/center>\"#" src/http/ngx_http_special_response.c
+	sed -i "s#server: nginx#server: xcdn#"
+	#替换头信息END
 	mkdir -p /usr/local/nginx/
 	./configure --prefix=/usr/local/nginx --user=www --group=www \
 	--with-stream \
@@ -179,6 +186,11 @@ function CompileInstall(){
     cp /root/nginx.conf /usr/local/nginx/
 	#日志分割
 	wget --no-check-certificate https://raw.githubusercontent.com/helloxz/nginx-cdn/master/etc/logrotate.d/nginx -P /etc/logrotate.d/
+
+	#替换静态文件
+	cd /usr/local
+	git clone https://github.com/helloxz/error_pages.git
+	cp -rf /usr/local/error_pages/*.html /usr/local/nginx/html/
 	
 	#/usr/local/nginx/sbin/nginx
 
