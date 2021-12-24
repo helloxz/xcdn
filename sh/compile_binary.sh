@@ -143,7 +143,8 @@ function CompileInstall(){
 	sed -i "s#\"nginx/\"#\"xcdn/\"#" src/core/nginx.h
 	sed -i "s#Server: nginx#Server: xcdn#" src/http/ngx_http_header_filter_module.c
 	sed -i "s#\"<hr><center>nginx<\/center>\"#\"<hr><center>xcdn<\/center>\"#" src/http/ngx_http_special_response.c
-	sed -i "s#server: nginx#server: xcdn#"
+	sed -i "s#server: nginx#server: $NGINX_BANNER#" src/http/v2/ngx_http_v2_filter_module.c
+	sed -i "s#\"server\", \"nginx\"#\"server\", \"$NGINX_BANNER\"#" src/http/v2/ngx_http_v2_filter_module.c
 	#替换头信息END
 	mkdir -p /usr/local/nginx/
 	./configure --prefix=/usr/local/nginx --user=www --group=www \
