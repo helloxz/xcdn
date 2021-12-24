@@ -34,6 +34,15 @@ set_time(){
 	apk del tzdata
 }
 
+install_before(){
+	#脚本添加执行权限
+	chmod +x /root/*.sh
+	cp /root/run.sh /usr/sbin/
+	cp /root/xcdn.sh /usr/sbin/
+	#创建软连接
+	ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
+}
+
 #安装静态nginx额外依赖
 nginx_depend(){
 	cd /usr/local/
@@ -62,4 +71,11 @@ install_nginx(){
 	echo "XCDN installed successfully."
 }
 
-depend && set_time && nginx_depend && install_nginx
+#清理工作
+clean_work(){
+	rm -rf /var/cache/apk/*
+	rm -rf /root/.cache
+	rm -rf /tmp/*
+}
+
+install_before && depend && set_time && nginx_depend && install_nginx && clean_work
