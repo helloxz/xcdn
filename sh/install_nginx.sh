@@ -58,10 +58,10 @@ nginx_depend(){
 #安装nginx
 install_nginx(){
 	cd /usr/local
-	wget http://soft.xiaoz.org/nginx/nginx-binary-alpine-${nginx_version}_x86_64.tar.gz
-	tar -xvf nginx-binary-alpine-${nginx_version}_x86_64.tar.gz
-	rm -rf nginx-binary-alpine-${nginx_version}_x86_64.tar.gz
-	mv /usr/local/nginx/conf/nginx.conf.bak /usr/local/nginx/conf/nginx.conf
+	wget http://soft.xiaoz.org/xcdn/xcdn-binary-alpine-${nginx_version}_x86_64.tar.gz
+	tar -xvf xcdn-binary-alpine-${nginx_version}_x86_64.tar.gz
+	rm -rf xcdn-binary-alpine-${nginx_version}_x86_64.tar.gz
+	#mv /usr/local/nginx/conf/nginx.conf.bak /usr/local/nginx/conf/nginx.conf
 	#环境变量与服务
 	echo "export PATH=$PATH:/usr/local/nginx/sbin" >> /etc/profile
 	export PATH=$PATH:'/usr/local/nginx/sbin'
