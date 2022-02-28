@@ -2,6 +2,7 @@
 
 
 nginx_version='1.20.1'
+THEDATE='20220228'
 #安装依赖
 depend(){
 	apk update
@@ -58,9 +59,10 @@ nginx_depend(){
 #安装nginx
 install_nginx(){
 	cd /usr/local
-	wget http://soft.xiaoz.org/xcdn/xcdn-binary-alpine-${nginx_version}_x86_64.tar.gz
-	tar -xvf xcdn-binary-alpine-${nginx_version}_x86_64.tar.gz
-	rm -rf xcdn-binary-alpine-${nginx_version}_x86_64.tar.gz
+	NGINX_NAME=xcdn-binary-alpine-${nginx_version}-${THEDATE}_x86_64.tar.gz
+	wget http://soft.xiaoz.org/xcdn/${NGINX_NAME}
+	tar -xvf ${NGINX_NAME}
+	rm -rf ${NGINX_NAME}
 	#mv /usr/local/nginx/conf/nginx.conf.bak /usr/local/nginx/conf/nginx.conf
 	#环境变量与服务
 	echo "export PATH=$PATH:/usr/local/nginx/sbin" >> /etc/profile
