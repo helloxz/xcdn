@@ -64,7 +64,6 @@ function depend(){
 	cd ${dir}
 	wget http://soft.xiaoz.org/nginx/ngx_http_geoip2_module.zip
 	unzip ngx_http_geoip2_module.zip
-	ngx_waf && libmaxminddb
 }
 
 #编译安装Nginx
