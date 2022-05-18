@@ -51,7 +51,8 @@ apk add --no-cache --virtual .build-deps \
 	libmaxminddb-dev \
 	wget \
 	unzip \
-	bash
+	bash \
+	git
 
 
 #安装依赖环境
@@ -134,7 +135,7 @@ function CompileInstall(){
 	mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
 	#从Github下载新的配置文件
 	wget --no-check-certificate https://raw.githubusercontent.com/helloxz/xcdn/alpine/conf/nginx.conf
-    mv nginx.conf /usr/local/nginx/
+    mv nginx.conf /usr/local/nginx/conf/
 	#日志分割
 	wget --no-check-certificate https://raw.githubusercontent.com/helloxz/nginx-cdn/master/etc/logrotate.d/nginx -P /etc/logrotate.d/
 	
