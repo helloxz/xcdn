@@ -15,7 +15,7 @@ export PATH
 
 dir='/usr/local/'
 #定义nginx版本
-nginx_version='1.20.1'
+nginx_version='1.20.2'
 #定义openssl版本
 openssl_version='1.1.1g'
 #定义pcre版本
@@ -51,55 +51,11 @@ apk add --no-cache --virtual .build-deps \
 	libmaxminddb-dev \
 	wget \
 	unzip \
-	bash \
-	flex \
-	bison \
-	libtool \
-	autoconf \
-	automake \
-	autoconf \
-	g++ \
-	libcurl \
-	curl-dev \
-	git \
-	libsodium-dev
+	bash
 
-#安装ngx_waf的依赖
-function libmaxminddb(){
-	cd /usr/local/src \
-        &&  wget https://github.com/maxmind/libmaxminddb/releases/download/1.6.0/libmaxminddb-1.6.0.tar.gz -O libmaxminddb.tar.gz &&  mkdir libmaxminddb \
-        &&  tar -zxf "libmaxminddb.tar.gz" -C libmaxminddb --strip-components=1 \
-        &&  cd libmaxminddb \
-        &&  ./configure --prefix=/usr/local/libmaxminddb \
-        &&  make -j $(nproc) \
-        &&  make install \
-        &&  cd /usr/local/src \
-        &&  git clone -b v3.0.5 https://github.com/SpiderLabs/ModSecurity.git \
-        &&  cd ModSecurity \
-        &&  chmod +x build.sh \
-        &&  ./build.sh \
-        &&  git submodule init \
-        &&  git submodule update \
-        &&  ./configure --prefix=/usr/local/modsecurity --with-maxmind=/usr/local/libmaxminddb \
-        &&  make -j $(nproc) \
-        &&  make install \
-        &&  export LIB_MODSECURITY=/usr/local/modsecurity
-}
 
-function ngx_waf(){
-	mkdir -p /usr/local/src
-	cd /usr/local/src
-	git clone -b current https://github.com/ADD-SP/ngx_waf.git
-	cd /usr/local/src/ngx_waf \
-    &&  git clone -b v1.7.15 https://github.com/DaveGamble/cJSON.git lib/cjson
-	cd /usr/local/src/ngx_waf \
-    &&  git clone -b v2.3.0 https://github.com/troydhanson/uthash.git lib/uthash
-}
 #安装依赖环境
 function depend(){
-	cd ${dir}
-	wget http://soft.xiaoz.org/nginx/testcookie-nginx-module.zip
-	unzip testcookie-nginx-module.zip
 	#下载ngx_http_ipdb_module
 	#cd ${dir}
 	#wget http://soft.xiaoz.org/nginx/ngx_http_ipdb_module.zip
@@ -113,14 +69,9 @@ function depend(){
 
 #编译安装Nginx
 function CompileInstall(){
-	#rm -rf /usr/local/pcre-8.39.tar.gz
-	#rm -rf /usr/local/zlib-1.2.11.tar.gz
-	#rm -rf /usr/local/openssl-1.1.0h.tar.gz
-
-	#下载stub_status_module模块
 	cd /usr/local
 
-	### 重新启用替换模块
+	### 启用替换模块
 	wget http://soft.xiaoz.org/nginx/ngx_http_substitutions_filter_module.zip
 	unzip ngx_http_substitutions_filter_module.zip
 
@@ -158,12 +109,10 @@ function CompileInstall(){
 	--with-http_image_filter_module=dynamic \
 	--with-pcre \
 	--with-pcre-jit \
-	--add-dynamic-module=../ngx_http_substitutions_filter_module \
+	--add-module=../ngx_http_substitutions_filter_module \
 	--add-module=../ngx_cache_purge \
 	--add-module=../ngx_brotli \
-	--add-dynamic-module=${dir}ngx_http_geoip2_module \
-	--add-dynamic-module=/usr/local/src/ngx_waf
-	sed -i 's/^\(CFLAGS.*\)/\1 -fstack-protector-strong -Wno-sign-compare/' objs/Makefile
+	--add-dynamic-module=${dir}ngx_http_geoip2_module
 	make -j4 && make -j4 install
 
 	#一点点清理工作
@@ -182,18 +131,19 @@ function CompileInstall(){
 	cd
 	rm -rf jemalloc*
 
-	#复制配置文件
+	#默认配置文件重命名备份
 	mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
-    cp /root/nginx.conf /usr/local/nginx/
+	#从Github下载新的配置文件
+	wget --no-check-certificate https://raw.githubusercontent.com/helloxz/xcdn/alpine/conf/nginx.conf
+    mv nginx.conf /usr/local/nginx/
 	#日志分割
 	wget --no-check-certificate https://raw.githubusercontent.com/helloxz/nginx-cdn/master/etc/logrotate.d/nginx -P /etc/logrotate.d/
-
+	
+	#/usr/local/nginx/sbin/nginx
 	#替换静态文件
 	cd /usr/local
 	git clone https://github.com/helloxz/error_pages.git
 	cp -rf /usr/local/error_pages/*.html /usr/local/nginx/html/
-	
-	#/usr/local/nginx/sbin/nginx
 
 	#环境变量与服务
 	echo "export PATH=$PATH:/usr/local/nginx/sbin" >> /etc/profile
@@ -213,8 +163,10 @@ function down_geoip(){
     cd /tmp
     tar -xvf GeoLite2-City.tar.gz
     tar -xvf GeoLite2-Country.tar.gz
-    mv GeoLite2-Country_20210810/GeoLite2-Country.mmdb /root/
-    mv GeoLite2-City_20210810/GeoLite2-City.mmdb /root/
+    #创建保存数据库的文件夹
+    mkdir -p /usr/local/nginx/GeoLite2
+    mv GeoLite2-Country_20210810/GeoLite2-Country.mmdb /usr/local/nginx/GeoLite2/
+    mv GeoLite2-City_20210810/GeoLite2-City.mmdb /usr/local/nginx/GeoLite2/
 }
 
 #清理工作
@@ -234,5 +186,5 @@ ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
 
 
 #安装xcdn
-depend && CompileInstall && clean_work
+depend && CompileInstall && down_geoip && clean_work
 
