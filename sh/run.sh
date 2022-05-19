@@ -42,7 +42,7 @@ function run_check(){
     #判断是否存在.git文件
     if [ -d "/data/xcdn/.git" ]
     then
-		git pull origin ${BRANCH}
+		git fetch origin ${BRANCH}
     else
 		git clone -b ${BRANCH} ${REGISTRY_URL} .
     fi
