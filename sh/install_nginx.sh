@@ -1,24 +1,21 @@
 #!/bin/bash
 
-
-nginx_version='1.20.1'
-THEDATE='20220228'
+#http://soft.xiaoz.org/xcdn/xcdn-binary-alpine-1.20.2-20220518_x86_64.tar.gz
+nginx_version='1.20.2'
+THEDATE='20220518'
 #安装依赖
 depend(){
 	apk update
 	apk add --no-cache --virtual .build-deps \
 	openssl-dev \
 	pcre-dev \
-	libcurl \
-	zlib-dev \
 	gd-dev \
-	geoip-dev \
 	libmaxminddb-dev \
+	git \
 	wget \
 	curl \
-	libsodium \
 	bash \
-	libxml2
+	openssh-client 
 }
 
 #设置时间
@@ -41,19 +38,9 @@ install_before(){
 	#脚本添加执行权限
 	chmod +x /root/*.sh
 	cp /root/run.sh /usr/sbin/
-	cp /root/xcdn.sh /usr/sbin/
+	cp /root/xc.sh /usr/sbin/
 	#创建软连接
 	ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
-}
-
-#安装静态nginx额外依赖
-nginx_depend(){
-	cd /usr/local/
-	wget http://soft.xiaoz.org/nginx/modsecurity.tar.gz
-	tar -zxvf modsecurity.tar.gz
-	rm -rf modsecurity.tar.gz
-	export LIB_MODSECURITY=/usr/local/modsecurity
-	echo "export LIB_MODSECURITY=/usr/local/modsecurity" >> /etc/profile
 }
 
 #安装nginx
@@ -82,4 +69,4 @@ clean_work(){
 	rm -rf /tmp/*
 }
 
-install_before && depend && set_time && nginx_depend && install_nginx && clean_work
+install_before && depend && set_time && install_nginx && clean_work

@@ -40,6 +40,17 @@ function check_conf() {
     $nginx -c /data/xcdn/conf/nginx.conf -t
 }
 
+#强制更新配置
+function update(){
+	if [ "${BRANCH}" = "" ]
+    then
+		BRANCH="master"
+    fi
+    cd /data/xcdn/
+    git -b ${BRANCH} clone ${REGISTRY_URL} .
+    reload
+}
+
 # 根据用户输入执行不同动作
 case ${arg1} in
     'start') 
@@ -56,6 +67,9 @@ case ${arg1} in
     ;;
     '-t')
         check_conf
+    ;;
+    'update')
+    	update
     ;;
     *) 
         echo 'Parameter error!'

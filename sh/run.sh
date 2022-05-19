@@ -24,10 +24,13 @@ function create_dir(){
 
 #运行时检查
 function run_check(){
-    if [ ! -f "/data/xcdn/conf/nginx.conf" ];then
-        #复制配置文件
-        cp /root/nginx.conf /data/xcdn/conf/
+    #无论如何都先去拉取数据
+    if [ "${BRANCH}" = "" ]
+    then
+		BRANCH="master"
     fi
+    cd /data/xcdn/
+    git -b ${BRANCH} clone ${REGISTRY_URL} .
 
 }
 
@@ -38,5 +41,5 @@ function start_run(){
     #tail -f /data/xcdn/logs/error.log
 }
 #运行nginx
-create_dir
+#create_dir
 run_check && start_run
