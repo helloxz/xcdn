@@ -15,7 +15,8 @@ depend(){
 	wget \
 	curl \
 	bash \
-	openssh-client 
+	openssh-client \
+	logrotate
 }
 
 #设置时间
@@ -56,7 +57,8 @@ install_nginx(){
 	export PATH=$PATH:'/usr/local/nginx/sbin'
 
 	#日志分割
-	wget --no-check-certificate https://raw.githubusercontent.com/helloxz/nginx-cdn/master/etc/logrotate.d/nginx -P /etc/logrotate.d/
+	#wget --no-check-certificate https://raw.githubusercontent.com/helloxz/nginx-cdn/master/etc/logrotate.d/nginx -P /etc/logrotate.d/
+	wget --no-check-certificate https://raw.githubusercontent.com/helloxz/xcdn/alpine/conf/nginx -P /etc/logrotate.d/
 
 	echo "------------------------------------------------"
 	echo "XCDN installed successfully."

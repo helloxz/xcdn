@@ -46,8 +46,8 @@ function update(){
     then
 		BRANCH="master"
     fi
-    cd /data/xcdn/
-    git clone -b ${BRANCH} ${REGISTRY_URL} .
+    cd /data/xcdn
+    git pull -b ${BRANCH}
     reload
 }
 
