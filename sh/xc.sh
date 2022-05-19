@@ -55,7 +55,8 @@ function update(){
 #push代码
 function push(){
 	cd /data/xcdn
-	git add * 
+	git add /data/xcdn/conf/*
+	git add /data/xcdn/ssl/*
 	git commit -m "$(date +%Y-%m-%d/%H:%m)"
 	git push origin ${BRANCH}
 }

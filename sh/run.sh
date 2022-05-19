@@ -5,6 +5,12 @@
 #Github:https://github.com/helloxz/xcdn
 ####################### END #######################
 
+#获取环境变量
+if [ "${BRANCH}" = "" ]
+then
+	BRANCH="master"
+fi
+
 #创建xcdn所需目录
 function create_dir(){
     #创建配置文件夹
@@ -24,11 +30,14 @@ function create_dir(){
 
 #运行时检查
 function run_check(){
+	#检查nginx日志是否存在，如果不存在则创建
+	if [ ! -f "/data/xcdn/logs/error.log" ]
+	then
+		#创建日志文件夹
+	    mkdir -p /data/xcdn/logs;
+	    touch /data/xcdn/logs/error.log
+	fi
     #无论如何都先去拉取数据
-    if [ "${BRANCH}" = "" ]
-    then
-		BRANCH="master"
-    fi
     cd /data/xcdn/
     #判断是否存在.git文件
     if [ -d "/data/xcdn/.git" ]
