@@ -12,6 +12,11 @@ nginx="${NGINX_PATH}/sbin/nginx"
 #获取用户传递的参数
 arg1=$1
 
+if [ "${BRANCH}" = "" ]
+then
+	BRANCH="master"
+fi
+
 #启动脚本
 function start(){
 	#运行nginx
@@ -42,13 +47,17 @@ function check_conf() {
 
 #强制更新配置
 function update(){
-	if [ "${BRANCH}" = "" ]
-    then
-		BRANCH="master"
-    fi
     cd /data/xcdn
     git pull origin ${BRANCH}
     reload
+}
+
+#push代码
+function push(){
+	cd /data/xcdn
+	git add * 
+	git commit -m "$(date +%Y-%m-%d/%H:%m)"
+	git push origin ${BRANCH}
 }
 
 # 根据用户输入执行不同动作
