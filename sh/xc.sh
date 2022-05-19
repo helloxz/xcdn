@@ -47,7 +47,7 @@ function update(){
 		BRANCH="master"
     fi
     cd /data/xcdn
-    git pull -b ${BRANCH}
+    git pull origin ${BRANCH}
     reload
 }
 

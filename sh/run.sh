@@ -30,7 +30,13 @@ function run_check(){
 		BRANCH="master"
     fi
     cd /data/xcdn/
-    git clone -b ${BRANCH} ${REGISTRY_URL} .
+    #判断是否存在.git文件
+    if [ -d "/data/xcdn/.git" ]
+    then
+		git pull origin ${BRANCH}
+    else
+		git clone -b ${BRANCH} ${REGISTRY_URL} .
+    fi
 
 }
 
