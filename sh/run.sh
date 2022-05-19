@@ -36,6 +36,7 @@ function run_check(){
 		#创建日志文件夹
 	    mkdir -p /data/logs;
 	    touch /data/logs/error.log
+	    touch /data/logs/stream-access.log
 	fi
     #无论如何都先去拉取数据
     cd /data/xcdn/
