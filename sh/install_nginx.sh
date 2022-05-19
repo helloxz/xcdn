@@ -42,6 +42,8 @@ install_before(){
 	cp /root/xc.sh /usr/sbin/
 	#创建软连接
 	ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
+	#创建缓存文件夹
+	mkdir -p /data/caches
 }
 
 #安装nginx
