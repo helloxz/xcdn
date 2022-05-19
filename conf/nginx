@@ -1,4 +1,4 @@
-/data/xcdn/logs/*.log {
+/data/logs/*.log {
   daily
   rotate 5
   missingok

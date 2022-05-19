@@ -34,15 +34,15 @@ function run_check(){
 	if [ ! -f "/data/xcdn/logs/error.log" ]
 	then
 		#创建日志文件夹
-	    mkdir -p /data/xcdn/logs;
-	    touch /data/xcdn/logs/error.log
+	    mkdir -p /data/logs;
+	    touch /data/logs/error.log
 	fi
     #无论如何都先去拉取数据
     cd /data/xcdn/
     #判断是否存在.git文件
     if [ -d "/data/xcdn/.git" ]
     then
-		git fetch origin ${BRANCH}
+		git pull origin ${BRANCH}
     else
 		git clone -b ${BRANCH} ${REGISTRY_URL} .
     fi
