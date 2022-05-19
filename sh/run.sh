@@ -30,7 +30,7 @@ function run_check(){
 		BRANCH="master"
     fi
     cd /data/xcdn/
-    git -b ${BRANCH} clone ${REGISTRY_URL} .
+    git clone -b ${BRANCH} ${REGISTRY_URL} .
 
 }
 
