@@ -66,6 +66,12 @@ install_nginx(){
 	echo "XCDN installed successfully."
 }
 
+#添加定时任务
+add_crontab() {
+	echo "添加定时任务"
+	echo "*/1    *       *       *       *       /root/pull.sh" >> /etc/crontabs/root
+}
+
 #清理工作
 clean_work(){
 	rm -rf /var/cache/apk/*
@@ -73,4 +79,4 @@ clean_work(){
 	rm -rf /tmp/*
 }
 
-install_before && depend && set_time && install_nginx && clean_work
+install_before && depend && set_time && install_nginx && add_crontab && clean_work

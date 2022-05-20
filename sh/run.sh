@@ -51,6 +51,9 @@ function run_check(){
 }
 
 function start_run(){
+	#运行crond
+	/usr/sbin/crond
+	sleep 2
     #运行nginx,保持前台运行
     /usr/local/nginx/sbin/nginx -g "daemon off;" -c /data/xcdn/conf/nginx.conf
     
