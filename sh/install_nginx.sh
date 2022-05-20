@@ -44,6 +44,8 @@ install_before(){
 	ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
 	#创建缓存文件夹
 	mkdir -p /data/caches
+	#创建站点文件夹
+	mkdir -p /data/wwwroot
 }
 
 #安装nginx
