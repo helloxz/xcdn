@@ -48,7 +48,7 @@ function check_conf() {
 #强制更新配置
 function update(){
     cd /data/xcdn
-    git fetch origin ${BRANCH}
+    git pull origin ${BRANCH}
     reload
 }
 
