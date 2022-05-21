@@ -72,6 +72,7 @@ install_nginx(){
 add_crontab() {
 	echo "添加定时任务"
 	echo "*/3    *       *       *       *       /root/pull.sh" >> /etc/crontabs/root
+	echo "30     9       *       *       *       /usr/sbin/logrotate -f /etc/logrotate.d/nginx" >> /etc/crontabs/root
 }
 
 #清理工作
