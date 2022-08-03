@@ -106,6 +106,7 @@ function CompileInstall(){
 	--with-http_gzip_static_module \
 	--with-http_realip_module \
 	--with-http_slice_module \
+	--with-http_secure_link_module \
 	--with-http_image_filter_module=dynamic \
 	--with-pcre \
 	--with-pcre-jit \
