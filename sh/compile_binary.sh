@@ -1,10 +1,10 @@
 #!/bin/bash
 #####	name:二进制包编译		#####
 #####	author:xiaoz<xiaoz.me>	#####
-#####	update:2021/12/23		#####
+#####	update:2023/11/21		#####
 
 #!/bin/bash
-############### Debian一键安装Nginx脚本 ###############
+############### Alpine一键安装Nginx脚本 ###############
 #Author:xiaoz.me
 #Update:2021-08-15
 #Github:https://github.com/helloxz/nginx-cdn
@@ -15,11 +15,13 @@ export PATH
 
 dir='/usr/local/'
 #定义nginx版本
-nginx_version='1.22.0'
+nginx_version='1.24.0'
 #定义openssl版本
-openssl_version='1.1.1g'
+openssl_version='1.1.1w'
 #定义pcre版本
 pcre_version='8.43'
+#GeoLite2-City
+GeoLite2_Date='20231117'
 
 #更新软件
 apk update
@@ -158,16 +160,16 @@ function CompileInstall(){
 #下载Geo数据库
 function down_geoip(){
     #下载数据库
-    wget -O /tmp/GeoLite2-City.tar.gz https://soft.xiaoz.org/linux/GeoLite2-City_20210810.tar.gz
-    wget -O /tmp/GeoLite2-Country.tar.gz https://soft.xiaoz.org/linux/GeoLite2-Country_20210810.tar.gz
+    wget -O /tmp/GeoLite2-City.tar.gz https://soft.xiaoz.org/linux/GeoLite2/GeoLite2-City_${GeoLite2_Date}.tar.gz
+    wget -O /tmp/GeoLite2-Country.tar.gz https://soft.xiaoz.org/linux/GeoLite2/GeoLite2-Country_${GeoLite2_Date}.tar.gz
     #解压数据库
     cd /tmp
     tar -xvf GeoLite2-City.tar.gz
     tar -xvf GeoLite2-Country.tar.gz
     #创建保存数据库的文件夹
     mkdir -p /usr/local/nginx/GeoLite2
-    mv GeoLite2-Country_20210810/GeoLite2-Country.mmdb /usr/local/nginx/GeoLite2/
-    mv GeoLite2-City_20210810/GeoLite2-City.mmdb /usr/local/nginx/GeoLite2/
+    mv GeoLite2-Country_${GeoLite2_Date}/GeoLite2-Country.mmdb /usr/local/nginx/GeoLite2/
+    mv GeoLite2-City_${GeoLite2_Date}/GeoLite2-City.mmdb /usr/local/nginx/GeoLite2/
 }
 
 #清理工作
