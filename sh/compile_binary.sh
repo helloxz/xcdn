@@ -65,8 +65,8 @@ function depend(){
 	#unzip ngx_http_ipdb_module.zip
 	#下载ngx_http_geoip2_module
 	cd ${dir}
-	wget http://soft.xiaoz.org/nginx/ngx_http_geoip2_module.zip
-	unzip ngx_http_geoip2_module.zip
+	wget https://soft.xiaoz.org/nginx/ngx_http_geoip2_module-3.4.zip
+	unzip ngx_http_geoip2_module-3.4.zip
 }
 
 #编译安装Nginx
