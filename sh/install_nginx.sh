@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #http://soft.xiaoz.org/xcdn/xcdn-binary-alpine-1.20.2-20220518_x86_64.tar.gz
-nginx_version='1.22.0'
-THEDATE='20220803'
+nginx_version='1.24.0'
+THEDATE='20231121'
 #安装依赖
 depend(){
 	apk update
