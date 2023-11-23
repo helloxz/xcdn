@@ -100,7 +100,7 @@ function CompileInstall(){
 	sed -i "s#\"server\", \"nginx\"#\"server\", \"$NGINX_BANNER\"#" src/http/v2/ngx_http_v2_filter_module.c
 	#替换头信息END
 	mkdir -p /usr/local/nginx/
-	./configure --prefix=/usr/local/nginx --user=www --group=www \
+	./configure --prefix=/usr/local/nginx \
 	--with-stream \
 	--with-http_stub_status_module \
 	--with-http_v2_module \
